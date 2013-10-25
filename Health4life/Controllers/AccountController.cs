@@ -13,8 +13,7 @@ using Health4life.Models;
 
 namespace Health4life.Controllers
 {
-    [Authorize]
-    [InitializeSimpleMembership]
+   
     public class AccountController : Controller
     {
         //
