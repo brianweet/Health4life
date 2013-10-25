@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ServiceConfiguration serviceName="Health4lifeCloud" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2012-10.1.8">
+  <Role name="Health4life">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=chatcircle;AccountKey=ftZmW+PDghn//Q1TTfXpCuA7bmCwZk9oeMlpEDeAWvKWv978OPZ3kyp+52wfIN3gliAtdb+pmu6sDKeArd4QYg==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="admin" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCED23o28NFM6oQlRTTw5TW3gwDQYJKoZIhvcNAQEBBQAEggEAs9H8q81a1UqkuQRABJe0f+Dm0Tw6lsHENTUcGKme9e2qWFiAwuBGHY1uWaMiszWjVzBlHA6VNZ4tXNLjgnV2tAfnk1u0blTmST+6ZdeWPaiZsQeGX6LT9B2wI3nggkCBl3uuZrSvoMmYewLrvYIdqbLI3nFOEvp2K/kd+tW769jywL0vRBCiYgXR9/oUqSbI376ymZs3ZcYDl67NQxUj3aXWowBPPaT8hTasL4trCq3X5vZzhq9m6spTCoivb5QT+XsrQPuvMEDXnJmuxzI+HSCInT/amWYNWuCiY08iwmXxnQkSKQorZa+KmK2Em7coV1oWBHxpxrcQpcWdpsGVJTAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECKIObnKIc0fFgBAC5hVRL67jQVLyy7Vj2ZmM" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2014-10-25T23:59:59.0000000+02:00" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />
+    </ConfigurationSettings>
+    <Certificates>
+      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="C2F43347B814379BAC9F60E38E44C7B951CAF406" thumbprintAlgorithm="sha1" />
+    </Certificates>
+  </Role>
+</ServiceConfiguration>
