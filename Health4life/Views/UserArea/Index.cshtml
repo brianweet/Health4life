@@ -2,39 +2,68 @@
 {
      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
+        var draw = false;
+        //init carousel
+        $(document).ready(function () {
+            $('#roundabout').roundabout({},function () {draw = true;});
+            $('#roundabout li').on("click.roundabout", function () {
+                var currentItem = $('#roundabout li div.action-buttons:visible');
+                var newItem = $(this).children('div.action-buttons');
 
-      // Load the Visualization API and the piechart package.
-      google.load('visualization', '1.0', {'packages':['corechart']});
+                if (currentItem[0] != newItem[0]) {
+                    currentItem.slideUp('slow');
+                    newItem.slideDown('slow');
+                }
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(drawChart);
+                if (this.id == "chart")
+                    $('#chart_div').slideDown('slow');
+                else
+                    $('#chart_div').slideUp('slow');
+            });
+            
+        });
+        
+        // Load the Visualization API and the piechart package.
+        google.load('visualization', '1.0', { 'packages': ['corechart'] });
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      function drawChart() {
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.setOnLoadCallback(drawChart);
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
-        data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
-        ]);
+        // Callback that creates and populates a data table,
+        // instantiates the pie chart, passes in the data and
+        // draws it.
+        function drawChart() {
+            if (!draw) {
+                setTimeout(drawChart, 500);
+                return;
+            }
 
-        // Set chart options
-        var options = {'title':'How Much Pizza I Ate Last Night',
-                       'width':400,
-                       'height':300};
+            // Create the data table.
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Topping');
+            data.addColumn('number', 'Slices');
+            data.addRows([
+                ['Mushrooms', 3],
+                ['Onions', 1],
+                ['Olives', 1],
+                ['Zucchini', 1],
+                ['Pepperoni', 2]
+            ]);
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
+            var width = $('#chart_div').parent().width();
+            var height = $('#chart_div').parent().width() - 160;
+            // Set chart options
+            var options = {
+                'title': 'How Much Pizza I Ate Last Night',
+                'width': width,
+                'height': height
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+        
     </script>
 }
 
@@ -42,10 +71,86 @@
     <div class="jumbotron">
         <div class="container">
             <h2>User area</h2>
+            <ul id="roundabout">
+                <li id="chart">
+                    <div class="header">
+                        <h4>Diary</h4>
+                    </div>
+
+                    <div class="content">
+                        <div id="chart_div"></div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to diary</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <h4>Activities History</h4>
+                    </div>
+
+                    <div class="content">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <h4 class="list-group-item-heading">Activities summary</h4>
+                            </div>
+                            <a href="#" class="list-group-item">
+                                <h4 class="list-group-item-heading">Walk 5 km</h4>
+                                <p>Walk 5 km on 25-10-2013</p>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <h4 class="list-group-item-heading">Hide and seek</h4>
+                                <p>Hide from teachers on 30-10-2013</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons" style="display: none;">
+                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to activities history</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <h4>Connect hub</h4>
+                    </div>
+
+                    <div class="content">
+                        Connect hub summary
+                    </div>
+
+                    <div class="action-buttons" style="display: none;">
+                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to connect hub</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <h4>Patient History</h4>
+                    </div>
+                    <div class="content">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <h4 class="list-group-item-heading">Patient history summary</h4>
+                            </div>
+                            <a href="#" class="list-group-item">
+                                <h4 class="list-group-item-heading">Walk 5 km</h4>
+                                <p>Walk 5 km on 25-10-2013</p>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <h4 class="list-group-item-heading">Hide and seek</h4>
+                                <p>Hide from teachers on 30-10-2013</p>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="action-buttons" style="display: none;">
+                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to patient history</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 }
-<div class="row">
+@*<div class="row">
     <div class="col-md-6">
         <div class="well">
             <h4>Diary</h4>
@@ -87,4 +192,4 @@
             Connect hub summary
         </div>    
     </div>
-</div>
+</div>*@
