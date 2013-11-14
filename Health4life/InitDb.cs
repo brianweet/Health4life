@@ -14,7 +14,7 @@ namespace Health4life
         protected override void Seed(UsersContext context)
         {
             WebSecurity.InitializeDatabaseConnection("DefaultConnection",
-               "UserProfile", "UserId", "UserName", autoCreateTables: true);
+               "UserProfile", "UserId", "Username", autoCreateTables: true);
             var roles = (SimpleRoleProvider)Roles.Provider;
             var membership = (SimpleMembershipProvider)Membership.Provider;
 

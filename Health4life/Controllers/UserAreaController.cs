@@ -25,11 +25,6 @@ namespace Health4life.Controllers
             return View();
         }
 
-        public ActionResult UserManagement()
-        {
-            return View();
-        }
-
         public ActionResult Diary()
         {
             return View();

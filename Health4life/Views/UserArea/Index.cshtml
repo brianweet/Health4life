@@ -82,7 +82,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to diary</a>
+                        @Html.ActionLink("Go to diary", "Diary", "UserArea", null, new {@class="btn btn-large btn-success"})
                     </div>
                 </li>
                 <li>
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="action-buttons" style="display: none;">
-                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to patient history</a>
+                        @Html.ActionLink("Go to patient history", "PatientHistory", "UserArea", null, new {@class="btn btn-large btn-success"})
                     </div>
                 </li>
             </ul>

@@ -31,7 +31,7 @@ namespace Health4life
             context.Database.Initialize(true);
             if (!WebSecurity.Initialized)
                 WebSecurity.InitializeDatabaseConnection("DefaultConnection",
-                     "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                     "UserProfile", "UserId", "Username", autoCreateTables: true);
         }
     }
 }

@@ -38,7 +38,10 @@
             @RenderBody()
             <hr />
             <div class="footer">
-                <p>&copy; Health Solutions.BV</p>
+                <p class="pull-left">&copy; Health Solutions.BV</p>
+                <p class="pull-right">
+                       @Html.ActionLink("Contact", "Contact", "Home")
+                </p>
             </div>
         </div>
  

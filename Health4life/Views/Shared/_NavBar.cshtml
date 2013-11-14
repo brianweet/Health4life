@@ -57,8 +57,8 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="@ActiveItem("UserManagement", "UserArea", null)">
-                        @Html.ActionLink(User.Identity.Name, "UserManagement", "UserArea")
+                    <li class="@ActiveItem("Manage", "Account", null)">
+                        @Html.ActionLink(User.Identity.Name, "Manage", "Account")
                     </li>
                     <li>
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))

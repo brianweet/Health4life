@@ -205,7 +205,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="InitDb.cs" />
-    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\LocalPasswordModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\UserProfile.cs" />
+    <Compile Include="Models\UsersContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -434,14 +439,10 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -453,13 +454,10 @@
     <Content Include="Views\UserArea\Index.cshtml" />
     <Content Include="Views\UserArea\ConnectHub.cshtml" />
     <Content Include="Views\UserArea\Activities.cshtml" />
-    <Content Include="Views\UserArea\UserManagement.cshtml" />
     <Content Include="Views\UserArea\Diary.cshtml" />
     <Content Include="Views\UserArea\PatientHistory.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
