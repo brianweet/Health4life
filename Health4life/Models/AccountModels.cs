@@ -16,6 +16,7 @@ namespace Health4life.Models
         }
 
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Activity> Activities { get; set; }
     }
 
     [Table("UserProfile")]
@@ -25,6 +26,17 @@ namespace Health4life.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
+    }
+
+    [Table("Activity")]
+    public class Activity
+    {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int ActivityId { get; set; }
+        public string Description { get; set; }
+        public DateTime Date { get; set; }
+
     }
 
     public class RegisterExternalLoginModel

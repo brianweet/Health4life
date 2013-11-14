@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Health4life.Models;
+using WebMatrix.WebData;
 
 namespace Health4life
 {
@@ -23,6 +26,12 @@ namespace Health4life
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            Database.SetInitializer<UsersContext>(new InitDb());
+            UsersContext context = new UsersContext();
+            context.Database.Initialize(true);
+            if (!WebSecurity.Initialized)
+                WebSecurity.InitializeDatabaseConnection("DefaultConnection",
+                     "UserProfile", "UserId", "UserName", autoCreateTables: true);
         }
     }
 }

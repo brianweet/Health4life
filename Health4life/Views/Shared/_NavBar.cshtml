@@ -19,14 +19,56 @@
             <a class="navbar-brand" href="#">Health4life</a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="@ActiveItem("Index", "Home", null)">@Html.ActionLink("Home", "Index", "Home")</li>
-                <li class="@ActiveItem("Login", "Account", null)">@Html.ActionLink("Login", "Login", "Account")</li>
-                <li class="@ActiveItem("Contact", "Home", null)">@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="@ActiveItem("Index", "UserArea", null)">@Html.ActionLink("User Area", "Index", "UserArea")</li>
-            </ul>
+            @if (!Request.IsAuthenticated)
+            {
+                <ul class="nav navbar-nav">
+                    <li class="@ActiveItem("Index", "Home", null)">
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
+                    <li class="@ActiveItem("Contact", "Home", null)">
+                        @Html.ActionLink("Contact", "Contact", "Home")
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="@ActiveItem("Login", "Account", null)">
+                        @Html.ActionLink("Login", "Login", "Account")
+                    </li>
+                </ul>
+            }else
+            {
+                <ul class="nav navbar-nav">
+                    <li class="@ActiveItem("Index", "Home", null)">
+                        @Html.ActionLink("Home", "Index", "Home")
+                    </li>
+                    <li class="@ActiveItem("Index", "UserArea", null)">
+                        @Html.ActionLink("User Area", "Index", "UserArea")
+                    </li>
+                    <li class="@ActiveItem("Diary", "UserArea", null)">
+                        @Html.ActionLink("Diary", "Diary", "UserArea")
+                    </li>
+                    <li class="@ActiveItem("Activities", "UserArea", null)">
+                        @Html.ActionLink("Activities", "Activities", "UserArea")
+                    </li>
+                    <li class="@ActiveItem("PatientHistory", "UserArea", null)">
+                        @Html.ActionLink("Patient history", "PatientHistory", "UserArea")
+                    </li>
+                    <li class="@ActiveItem("ConnectHub", "UserArea", null)">
+                        @Html.ActionLink("Connect Hub", "ConnectHub", "UserArea")
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="@ActiveItem("UserManagement", "UserArea", null)">
+                        @Html.ActionLink(User.Identity.Name, "UserManagement", "UserArea")
+                    </li>
+                    <li>
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a>
+                        }
+                    </li>
+                </ul>
+            }
         </div>
     </div>
 </div>

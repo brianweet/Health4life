@@ -13,7 +13,7 @@ using Health4life.Models;
 
 namespace Health4life.Controllers
 {
-   
+    [Authorize]
     public class AccountController : Controller
     {
         //
@@ -36,7 +36,10 @@ namespace Health4life.Controllers
         {
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
-                return RedirectToLocal(returnUrl);
+                if (!String.IsNullOrWhiteSpace(returnUrl))
+                    return RedirectToLocal(returnUrl);
+
+                return RedirectToAction("Index", "UserArea");
             }
 
             // If we got this far, something failed, redisplay form

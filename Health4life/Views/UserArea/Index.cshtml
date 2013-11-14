@@ -110,7 +110,7 @@
                     </div>
 
                     <div class="action-buttons" style="display: none;">
-                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to activities history</a>
+                        @Html.ActionLink("Go to activities history", "Activities", "UserArea", null, new {@class="btn btn-large btn-success"})
                     </div>
                 </li>
                 <li>
@@ -123,7 +123,7 @@
                     </div>
 
                     <div class="action-buttons" style="display: none;">
-                        <a class="btn btn-large btn-success" href="#" title="sign up">Go to connect hub</a>
+                        @Html.ActionLink("Go to connect hub", "ConnectHub", "UserArea", null, new {@class="btn btn-large btn-success"})
                     </div>
                 </li>
                 <li>
