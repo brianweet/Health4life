@@ -12,17 +12,36 @@
 	  width: 70%;
 	  height: 24em;
    }
+ .roundabout-holder p {
+     font-size: 0.8em;
+ }
    .roundabout-moveable-item {
         height: 20em;
 	    width: 50%;
-	    background-color: #e0e0e0;
+	    background-color: #c2c2c2;
 	    text-align: center;
 	    cursor: pointer;
    }
-   .roundabout-in-focus {
-      cursor: default;
-   }
+.roundabout-in-focus {
+    cursor: default;
+}
 
+.roundabout-in-focus table {
+    font-size: 0.6em;
+}
+
+.roundabout-moveable-item div.content, .roundabout-moveable-item div.action-buttons
+{
+    -webkit-transition: opacity 0.8s ease-out;
+    -moz-transition: opacity 0.8s ease-out;
+    -o-transition: opacity 0.8s ease-out;
+    transition: opacity 0.8s ease-out;
+    opacity: 0;
+}
+
+.roundabout-moveable-item.roundabout-in-focus div.content, .roundabout-moveable-item.roundabout-in-focus div.action-buttons {
+    opacity: 1;
+   }
    
 			/*ul {
 				list-style: none;

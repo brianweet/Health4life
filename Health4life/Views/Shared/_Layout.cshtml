@@ -8,14 +8,14 @@
  
         @Styles.Render("~/Content/css")
         <script type="text/javascript">
-            if (window.location.search.toLowerCase() == '?style=metro') {
+            if (window.location.search.toLowerCase() == '?style=readable') {
                 var e = document.createElement('link');
-                e.href = '/Content/themes/cosmo/bootstrap.css';
+                e.href = '/Content/themes/readable/bootstrap.css';
                 e.rel = 'stylesheet';
                 document.getElementsByTagName("head")[0].appendChild(e);
             } else {
                 var e = document.createElement('link');
-                e.href = '/Content/themes/readable/bootstrap.css';
+                e.href = '/Content/themes/cosmo/bootstrap.css';
                 e.rel = 'stylesheet';
                 document.getElementsByTagName("head")[0].appendChild(e);
             }

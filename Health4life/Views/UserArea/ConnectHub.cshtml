@@ -1,11 +1,109 @@
-﻿@{
+﻿@model Health4life.ViewModel.ConnectHubVm
+
+@{
     ViewBag.Title = "Connect hub";
 }
 
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
         <h2>@ViewBag.Title</h2>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pellentesque metus vulputate metus dictum, quis volutpat est imperdiet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Duis risus ligula, hendrerit nec luctus vitae, bibendum eget felis. Maecenas vulputate lectus eget mi mattis, vel blandit nulla rhoncus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-        <p><a class="btn btn-large btn-success" href="#" title="sign up">sign up</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h3>Create a new share key</h3>
+        
+        <form role="form">
+            <div class="form-group">
+                <label for="valid-for-list">Valid for who</label>
+                <div id="valid-for-list">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-sm btn-info">
+                            <input type="radio" name="valid-for" id="valid-for-gp">
+                            GP
+                        </label>
+                        <label class="btn btn-sm btn-info">
+                            <input type="radio" name="valid-for" id="valid-for-all">
+                            Anyone
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="valid-until-list">Valid for how long</label>
+                <div id="valid-until-list" >
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-sm btn-info">
+                            <input type="radio" name="valid-until" value="hour" id="valid-until-hour">
+                            Hour
+                        </label>
+                        <label class="btn btn-sm btn-info">
+                            <input type="radio" name="valid-until" value="day" id="valid-until-day">
+                            Day
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-sm btn-primary">Create new share key</button>
+        </form>
+
+        
+
+        @*<div class="input-group input-group-sm">
+            <label for="valid-for-gp">Valid for</label>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-info">
+                    <input type="radio" name="options" id="valid-for-gp">
+                    GP
+                </label>
+                <label class="btn btn-info">
+                    <input type="radio" name="options" id="valid-for-all">
+                    Anyone
+                </label>
+            </div>
+
+        </div>*@
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Existing share keys
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Valid until</th>
+                        <th>Valid for</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var key in Model.ShareKeys)
+                    {
+                        var rowClass = (key.IsActive) ? "success" : null;
+                        <tr class="@rowClass">
+                            
+                            <td>@key.Id</td>
+                            <td>@key.ValidUntil.ToString("dd-MMM-yyyy HH:mm")</td>
+                            <td>@key.ValidFor</td>
+                            <td>
+                                @if(key.IsActive)
+                                {
+                                    <button type="button" class="btn btn-sm btn-primary">Invalidate key</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-sm btn-primary" disabled="disabled">Invalidate key</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

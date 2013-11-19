@@ -1,24 +1,19 @@
-﻿@section scripts
+﻿@model Health4life.ViewModel.ConnectHubVm
+@section scripts
 {
      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
         var draw = false;
         //init carousel
         $(document).ready(function () {
-            $('#roundabout').roundabout({},function () {draw = true;});
-            $('#roundabout li').on("click.roundabout", function () {
-                var currentItem = $('#roundabout li div.action-buttons:visible');
-                var newItem = $(this).children('div.action-buttons');
-
-                if (currentItem[0] != newItem[0]) {
-                    currentItem.slideUp('slow');
-                    newItem.slideDown('slow');
-                }
-
-                if (this.id == "chart")
-                    $('#chart_div').slideDown('slow');
-                else
-                    $('#chart_div').slideUp('slow');
+            var roundaboutElem = $('#roundabout');
+            roundaboutElem.roundabout({ autoplay: true, autoplayDuration: 5000, responsive: true }, function () { draw = true; });
+            roundaboutElem.children('li').on("click.roundabout", function () {
+                debugger;
+                
+                var isAutoPlaying = roundaboutElem.roundabout("isAutoplaying");
+                if(isAutoPlaying)
+                    roundaboutElem.roundabout("stopAutoplay");
             });
             
         });
@@ -109,7 +104,7 @@
                         </div>
                     </div>
 
-                    <div class="action-buttons" style="display: none;">
+                    <div class="action-buttons">
                         @Html.ActionLink("Go to activities history", "Activities", "UserArea", null, new {@class="btn btn-large btn-success"})
                     </div>
                 </li>
@@ -120,9 +115,41 @@
 
                     <div class="content">
                         Connect hub summary
+                        <table class="table">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Valid until</th>
+                        <th>Valid for</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var key in Model.ShareKeys)
+                    {
+                        var rowClass = (key.IsActive) ? "success" : null;
+                        <tr class="@rowClass">
+                            
+                            <td>@key.Id</td>
+                            <td>@key.ValidUntil.ToString("dd-MMM-yyyy HH:mm")</td>
+                            <td>@key.ValidFor</td>
+                            <td>
+                                @if(key.IsActive)
+                                {
+                                    <button type="button" class="btn btn-sm btn-primary">Invalidate key</button>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-sm btn-primary" disabled="disabled">Invalidate key</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
                     </div>
 
-                    <div class="action-buttons" style="display: none;">
+                    <div class="action-buttons">
                         @Html.ActionLink("Go to connect hub", "ConnectHub", "UserArea", null, new {@class="btn btn-large btn-success"})
                     </div>
                 </li>
@@ -141,7 +168,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="action-buttons" style="display: none;">
+                    <div class="action-buttons">
                         @Html.ActionLink("Go to patient history", "PatientHistory", "UserArea", null, new {@class="btn btn-large btn-success"})
                     </div>
                 </li>

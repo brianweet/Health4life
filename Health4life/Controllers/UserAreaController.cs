@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
+using Health4life.ViewModel;
 
 namespace Health4life.Controllers
 {
@@ -12,12 +13,46 @@ namespace Health4life.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var vm = new ConnectHubVm();
+            vm.ShareKeys = new List<ShareKey>
+                {
+                    new ShareKey()
+                        {
+                            Id = Guid.NewGuid(),
+                            ValidFor = "GP",
+                            ValidUntil = new DateTime(2013, 11, 21, 20, 00, 00)
+                        }
+                    ,new ShareKey()
+                        {
+                            Id = Guid.NewGuid(),
+                            ValidFor = "GP",
+                            ValidUntil = new DateTime(2013, 11, 11, 10, 00, 00)
+                        }
+                };
+
+            return View(vm);
         }
 
         public ActionResult ConnectHub()
         {
-            return View();
+            var vm = new ConnectHubVm();
+            vm.ShareKeys = new List<ShareKey>
+                {
+                    new ShareKey()
+                        {
+                            Id = Guid.NewGuid(),
+                            ValidFor = "GP",
+                            ValidUntil = new DateTime(2013, 11, 21, 20, 00, 00)
+                        }
+                    ,new ShareKey()
+                        {
+                            Id = Guid.NewGuid(),
+                            ValidFor = "GP",
+                            ValidUntil = new DateTime(2013, 11, 11, 10, 00, 00)
+                        }
+                };
+
+            return View(vm);
         }
 
         public ActionResult Activities()
