@@ -1,4 +1,4 @@
-﻿@model Health4life.ViewModel.ConnectHubVm
+﻿@model Health4life.ViewModel.UserAreaVm
 @section scripts
 {
      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -90,15 +90,25 @@
                             <div class="list-group-item">
                                 <h4 class="list-group-item-heading">Activities summary</h4>
                             </div>
+                            @foreach(var activity in Model.Activities)
+                            {
+                                <a href="#" class="list-group-item">
+                                    @if(activity.IsFromGp)
+                                    {
+                                        <span class="label label-info">
+                                            GP Advice
+                                        </span>
+                                    }
+                                    <h4 class="list-group-item-heading">
+                                        @activity.Description Walk 5 km
+                                    </h4>
+                                    <p>@activity.Description on @activity.Date.ToString("dd-MMM-yyyy")</p>
+                                </a>
+                            }
                             <a href="#" class="list-group-item">
-                                 <span class="label label-info">GP Advice</span>
                                 <h4 class="list-group-item-heading">
-                                    Walk 5 km
+                                    Hide and seek
                                 </h4>
-                                <p>Walk 5 km on 25-10-2013</p>
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Hide and seek</h4>
                                 <p>Hide from teachers on 30-10-2013</p>
                             </a>
                         </div>
@@ -128,7 +138,7 @@
                                     var rowClass = (key.IsActive) ? "success" : null;
                                     <tr class="@rowClass">
                             
-                                        <td>@key.Id</td>
+                                        <td>@key.Key</td>
                                         <td>@key.ValidUntil.ToString("dd-MMM-yyyy HH:mm")</td>
                                         <td>@key.ValidFor</td>
                                     </tr>

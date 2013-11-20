@@ -27,8 +27,12 @@ namespace Health4life
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                         "~/Scripts/bootstrap*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                        "~/Scripts/select2.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include( 
-                "~/Content/health4life.css"));
+                "~/Content/health4life.css",
+                "~/Content/select2/select2.css"));
 
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

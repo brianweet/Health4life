@@ -26,8 +26,8 @@ namespace Health4life
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
-            Database.SetInitializer<UsersContext>(new InitDb());
-            UsersContext context = new UsersContext();
+            Database.SetInitializer<H4LContext>(new InitDb());
+            H4LContext context = new H4LContext();
             context.Database.Initialize(true);
             if (!WebSecurity.Initialized)
                 WebSecurity.InitializeDatabaseConnection("DefaultConnection",

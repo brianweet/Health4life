@@ -9,29 +9,98 @@
         <hgroup class="title">
             <h1>@ViewBag.Title.</h1>
         </hgroup>
-        <div class="alert alert-success">@ViewBag.StatusMessage</div>
+        @if (!String.IsNullOrWhiteSpace(ViewBag.StatusMessage))
+        {
+            <div class="alert alert-success">@ViewBag.StatusMessage</div>
+        }
 
         <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
-        
-        @using (Html.BeginForm("ManageGP", "Account",null,FormMethod.Post,new{@class="form-horizontal"})) {
+
+        @using (Html.BeginForm("ManageGP", "Account", null, FormMethod.Post, new { @class = "form-horizontal" }))
+        {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary()
 
-                <fieldset>
-                    <legend>Manage my GP</legend>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Current GP</label>
-                        <div class="col-md-9">
-                            <p class="form-control-static">None</p>
-                        </div>
+            <fieldset>
+                <legend>Manage my GP</legend>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Current GP</label>
+                    <div class="col-md-9">
+                        <p class="form-control-static">None</p>
                     </div>
-                    <div class="form-group">
-                        <label for="newGP" class="col-sm-3 control-label">Find new GP</label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" id="newGP" placeholder="Enter email or GP name">
-                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="newGP" class="col-sm-3 control-label">Find new GP</label>
+                    <div class="col-sm-9">
+                        <select id="gp-select">
+                            <option></option>
+                            <optgroup label="Amsterdam">
+                                <option value="1">Armand Needles</option>
+                                <option value="2">Tonisha Asper</option>
+                                <option value="3">Venice Motsinger</option>
+                                <option value="4">Sha Lesniak</option>
+                                <option value="5">Bettye Riffe</option>
+                            </optgroup>
+                            <optgroup label="Den Haag">
+                                <option value="6">Destiny Sims</option>
+                                <option value="7">Connie Conlon</option>
+                                <option value="8">Yetta Donnellan</option>
+                                <option value="9">Donovan Pal</option>
+                                <option value="10">Bailey Batres</option>
+                                <option value="11">Thersa Sarabia</option>
+                                <option value="12">Donella Mcmillon</option>
+                                <option value="13">Shery Lent</option>
+                                <option value="14">Tish Body</option>
+                            </optgroup>
+                            <optgroup label="Leiden">
+                                <option value="15">Cory Purkey</option>
+                                <option value="16">Marcel Schneiderman</option>
+                                <option value="17">Majorie Mellor</option>
+                                <option value="18">Marilee Grossi</option>
+                                <option value="19">Lakenya Gose</option>
+                                <option value="20">Miranda Kuiper</option>
+                                <option value="21">Malcom Chidester</option>
+                                <option value="22">Margene Lopp</option>
+                                <option value="23">Garret Cabell</option>
+                                <option value="24">Josue Bowler</option>
+                                <option value="25">Raymonde Whiteside</option>
+                                <option value="26">Ilona Mohney</option>
+                                <option value="27">Vincent Schwanke</option>
+                                <option value="28">Marilynn Scheele</option>
+                            </optgroup>
+                            <optgroup label="Zaandam">
+                                <option value="29">Shaquita Addis</option>
+                                <option value="30">Annabel Wiren</option>
+                                <option value="31">Owen Britt</option>
+                                <option value="32">Yukiko Barkan</option>
+                                <option value="33">Jesus Bobb</option>
+                                <option value="34">Artie Issa</option>
+                                <option value="35">Jacquelyn Shenkel</option>
+                                <option value="36">Katherine Tomblin</option>
+                                <option value="37">Jame Degarmo</option>
+                                <option value="38">Helene Gracey</option>
+                                <option value="39">Toby Dahlke</option>
+                                <option value="40">Ann Propp</option>
+                                <option value="41">Lavona Fremont</option>
+                                <option value="42">Jamaal Devino</option>
+                                <option value="43">Ricarda Setliff</option>
+                                <option value="44">Starr Klahn</option>
+                                <option value="45">Mina Xavier</option>
+                                <option value="46">Michele Brookshire</option>
+                                <option value="47">Meta Starbird</option>
+                                <option value="48">Dona Giancola</option>
+                                <option value="49">Sasha Haverty</option>
+                                <option value="50">Carol Tarry</option>
+                            </optgroup>
+                        </select>
                     </div>
-                </fieldset>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <input id="change-gp-button" disabled="disabled" type="submit" class="btn btn-primary" value="Change GP" />
+                    </div>
+                </div>
+            </fieldset>
         }
 
         @if (ViewBag.HasLocalPassword)
@@ -52,13 +121,36 @@
             </hgroup>
             
             <div>
-                @Html.ActionLink("Create new user", "Register","Account", null, new {@class="btn btn-large btn-primary"})
+                @Html.ActionLink("Create new user", "Register", "Account", null, new { @class = "btn btn-large btn-primary" })
             </div>
     
+        }else
+        {
+            
         }
     </div>
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/select2")
+    <script type="text/javascript">
+        $(function () {
+            var gpEl = $("#gp-select");
+            var gpSubmit = $("#change-gp-button");
+            gpEl.select2({
+                placeholder: "Find your GP by searching his/her name",
+                allowClear: true,
+                minimumInputLength: 2
+            });
+            gpEl.on("change", function (e) {
+                if (e.val) {
+                    gpSubmit.prop("disabled", false);
+                } else {
+                    gpSubmit.prop("disabled", true);
+                }
+
+            });
+        });
+    </script>
 }
