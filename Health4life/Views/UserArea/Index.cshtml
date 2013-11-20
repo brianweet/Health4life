@@ -1,4 +1,136 @@
 ﻿@model Health4life.ViewModel.UserAreaVm
+@section featured {
+    <div class="jumbotron">
+        <div class="container">
+            <h2>User area</h2>
+            <ul id="roundabout">
+                <li>
+                    <div class="header">
+                        <h4>Diary</h4>
+                    </div>
+
+                    <div class="content" style="font-size: 14px;">
+                        @*<div id="chart_div"></div>*@
+                        <div id="calendar"></div>
+                    </div>
+
+                    <div class="action-buttons">
+                        @Html.ActionLink("Go to diary", "Diary", "UserArea", null, new { @class = "btn btn-large btn-success" })
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <h4>Activities History</h4>
+                    </div>
+
+                    <div class="content">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <h4 class="list-group-item-heading">Activities summary</h4>
+                            </div>
+                            @foreach (var activity in Model.Activities)
+                            {
+                                <a href="#" class="list-group-item">
+                                    @if (activity.IsNew)
+                                    {
+                                        <span class="label label-default">
+                                            New!
+                                        </span>
+                                    }
+                                    @if (activity.IsFromGp)
+                                    {
+                                        <span class="label label-info">
+                                            GP Advice
+                                        </span>
+                                    }
+                                    <h4 class="list-group-item-heading">
+                                        @activity.Description 
+                                    </h4>
+                                    <p>@activity.Description on @activity.Date.ToString("dd-MMM-yyyy")</p>
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        @Html.ActionLink("Go to activities history", "Activities", "UserArea", null, new { @class = "btn btn-large btn-success" })
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <h4>Connect hub</h4>
+                    </div>
+
+                    <div class="content">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Valid until</th>
+                                    <th>Valid for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var key in Model.ShareKeys)
+                                {
+                                    var rowClass = (key.IsActive) ? "success" : null;
+                                    <tr class="@rowClass">
+                            
+                                        <td>@key.Key</td>
+                                        <td>@key.ValidUntil.ToString("dd-MMM-yyyy HH:mm")</td>
+                                        <td>@key.ValidFor</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="action-buttons">
+                        @Html.ActionLink("Go to connect hub", "ConnectHub", "UserArea", null, new { @class = "btn btn-large btn-success" })
+                    </div>
+                </li>
+                <li>
+                    <div class="header">
+                        <h4>Patient History</h4>
+                    </div>
+                    <div class="content">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <h4 class="list-group-item-heading">Patient history summary</h4>
+                            </div>
+                            @foreach (var entry in Model.HistoryEntries)
+                            {
+                                <a href="#" class="list-group-item">
+                                    <h4 class="list-group-item-heading">@entry.Description</h4>
+                                    <p>@entry.DomainDescription on @entry.Date.ToString("dd-MM-yyyy")</p>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        @Html.ActionLink("Go to patient history", "PatientHistory", "UserArea", null, new { @class = "btn btn-large btn-success" })
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal fade" id="events-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+			    <div class="modal-header">
+				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				    <h4 class="modal-title">Event</h4>
+			    </div>
+			    <div class="modal-body" style="height: 300px">
+			    </div>
+			    <div class="modal-footer">
+				    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+}
+
 @section scripts
 {
      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -8,7 +140,7 @@
         $(document).ready(function () {
             var roundaboutElem = $('#roundabout');
             roundaboutElem.roundabout({ autoplay: true, autoplayDuration: 5000, responsive: true }, function () { draw = true; });
-            roundaboutElem.children('li').on("click.roundabout", function () {
+            roundaboutElem.children('li').on("click", function () {
                 debugger;
                 
                 var isAutoPlaying = roundaboutElem.roundabout("isAutoplaying");
@@ -18,7 +150,7 @@
             
         });
         
-        // Load the Visualization API and the piechart package.
+    /*// Load the Visualization API and the piechart package.
         google.load('visualization', '1.0', { 'packages': ['corechart'] });
 
         // Set a callback to run when the Google Visualization API is loaded.
@@ -57,120 +189,50 @@
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             chart.draw(data, options);
-        }
+        }*/
         
     </script>
-}
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var options = {
+                events_source: '/UserArea/AgendaEvents',
+                view: 'month',
+                tmpl_path: '/tmpls/',
+                tmpl_cache: false,
+                onAfterEventsLoad: function (events) {
+                    if (!events) {
+                        return;
+                    }
+                    var list = $('#eventlist');
+                    list.html('');
 
-@section featured {
-    <div class="jumbotron">
-        <div class="container">
-            <h2>User area</h2>
-            <ul id="roundabout">
-                <li id="chart">
-                    <div class="header">
-                        <h4>Diary</h4>
-                    </div>
+                    $.each(events, function (key, val) {
+                        $(document.createElement('li'))
+                            .html('<a href="' + val.url + '">' + val.title + '</a>')
+                            .appendTo(list);
+                    });
+                },
+                onAfterViewLoad: function (view) {
+                    $('.page-header h3').text(this.getTitle());
+                    $('.btn-group button').removeClass('active');
+                    $('button[data-calendar-view="' + view + '"]').addClass('active');
+                },
+                classes: {
+                    months: {
+                        general: 'label'
+                    }
+                }
+            };
 
-                    <div class="content">
-                        <div id="chart_div"></div>
-                    </div>
-
-                    <div class="action-buttons">
-                        @Html.ActionLink("Go to diary", "Diary", "UserArea", null, new {@class="btn btn-large btn-success"})
-                    </div>
-                </li>
-                <li>
-                    <div class="header">
-                        <h4>Activities History</h4>
-                    </div>
-
-                    <div class="content">
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Activities summary</h4>
-                            </div>
-                            @foreach(var activity in Model.Activities)
-                            {
-                                <a href="#" class="list-group-item">
-                                    @if(activity.IsFromGp)
-                                    {
-                                        <span class="label label-info">
-                                            GP Advice
-                                        </span>
-                                    }
-                                    <h4 class="list-group-item-heading">
-                                        @activity.Description Walk 5 km
-                                    </h4>
-                                    <p>@activity.Description on @activity.Date.ToString("dd-MMM-yyyy")</p>
-                                </a>
-                            }
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">
-                                    Hide and seek
-                                </h4>
-                                <p>Hide from teachers on 30-10-2013</p>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        @Html.ActionLink("Go to activities history", "Activities", "UserArea", null, new {@class="btn btn-large btn-success"})
-                    </div>
-                </li>
-                <li>
-                    <div class="header">
-                        <h4>Connect hub</h4>
-                    </div>
-
-                    <div class="content">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Key</th>
-                                    <th>Valid until</th>
-                                    <th>Valid for</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach(var key in Model.ShareKeys)
-                                {
-                                    var rowClass = (key.IsActive) ? "success" : null;
-                                    <tr class="@rowClass">
-                            
-                                        <td>@key.Key</td>
-                                        <td>@key.ValidUntil.ToString("dd-MMM-yyyy HH:mm")</td>
-                                        <td>@key.ValidFor</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="action-buttons">
-                        @Html.ActionLink("Go to connect hub", "ConnectHub", "UserArea", null, new {@class="btn btn-large btn-success"})
-                    </div>
-                </li>
-                <li>
-                    <div class="header">
-                        <h4>Patient History</h4>
-                    </div>
-                    <div class="content">
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <h4 class="list-group-item-heading">Patient history summary</h4>
-                            </div>
-                            <a href="#" class="list-group-item">
-                                <h4 class="list-group-item-heading">Broken leg</h4>
-                                <p>Fractured femur on 26-10-2013</p>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        @Html.ActionLink("Go to patient history", "PatientHistory", "UserArea", null, new {@class="btn btn-large btn-success"})
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+            var calendar = $('#calendar').calendar(options);
+            calendar.setOptions({ modal: '#events-modal' });
+            $('.btn-group button[data-calendar-nav]').each(function () {
+                var $this = $(this);
+                $this.click(function () {
+                    calendar.navigate($this.data('calendar-nav'));
+                });
+            });
+        });
+    </script>
 }

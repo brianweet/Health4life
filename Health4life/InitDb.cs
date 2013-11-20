@@ -23,6 +23,8 @@ namespace Health4life
 
             SeedAdmin();
 
+            SeedGp();
+
             SeedTestMember();
         }
         private void SeedAdmin()
@@ -40,9 +42,15 @@ namespace Health4life
                 _roleProvider.AddUsersToRoles(new[] { "admin" }, new[] { "Admin" });
             }
 
+            var adminUser = _membershipProvider.GetUser("admin", false);
+
+            if (adminUser == null)
+                return;
+
             _context.Activities.Add(new Activity()
                 {
                     Date = new DateTime(2013, 11, 11, 12, 00, 00),
+                    OwnerUserId = ((int)adminUser.ProviderUserKey),
                     Description = "Run 5 km",
                     IsFromGp = true,
                     IsNew = false
@@ -50,10 +58,35 @@ namespace Health4life
             _context.Activities.Add(new Activity()
             {
                 Date = new DateTime(2013, 11, 15, 12, 00, 00),
+                OwnerUserId = ((int)adminUser.ProviderUserKey),
                 Description = "Ride 10 km by bike",
                 IsFromGp = false,
                 IsNew = true
             });
+
+            _context.HistoryEntries.Add(new HistoryEntry()
+            {
+                    OwnerUserId = ((int)adminUser.ProviderUserKey),
+                    Date = new DateTime(2013, 11, 20, 12, 00, 00),
+                    DomainDescription = "Fractured fremur",
+                    Description = "Broken leg"
+                });
+        }
+
+        private void SeedGp()
+        {
+            if (!_roleProvider.RoleExists("Gp"))
+            {
+                _roleProvider.CreateRole("Gp");
+            }
+            if (_membershipProvider.GetUser("Armand Needles", false) == null)
+            {
+                _membershipProvider.CreateUserAndAccount("Armand Needles", "testtest", false);
+            }
+            if (!_roleProvider.GetRolesForUser("Armand Needles").Contains("Gp"))
+            {
+                _roleProvider.AddUsersToRoles(new[] { "Armand Needles" }, new[] { "Gp" });
+            }
         }
 
         private void SeedTestMember()
@@ -82,6 +115,7 @@ namespace Health4life
             _context.Activities.Add(new Activity()
             {
                 Date = new DateTime(2013, 11, 12, 12, 00, 00),
+                OwnerUserId = ((int)testUser.ProviderUserKey),
                 Description = "Run 15 km",
                 IsFromGp = true,
                 IsNew = false
@@ -89,6 +123,7 @@ namespace Health4life
             _context.Activities.Add(new Activity()
             {
                 Date = new DateTime(2013, 11, 22, 12, 00, 00),
+                OwnerUserId = ((int)testUser.ProviderUserKey),
                 Description = "Run 5 km",
                 IsFromGp = false,
                 IsNew = true
@@ -106,6 +141,14 @@ namespace Health4life
                 ValidUntil = new DateTime(2013, 11, 22, 12, 00, 00),
                 OwnerUserId = ((int)testUser.ProviderUserKey),
                 ValidForUserId = gpUserId
+            });
+
+            _context.HistoryEntries.Add(new HistoryEntry()
+            {
+                OwnerUserId = ((int)testUser.ProviderUserKey),
+                Date = new DateTime(2013, 11, 20, 12, 00, 00),
+                DomainDescription = "Fractured fremur",
+                Description = "Broken leg"
             });
 
         }

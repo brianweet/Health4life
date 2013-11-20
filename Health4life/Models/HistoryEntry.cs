@@ -5,8 +5,8 @@ using Health4life.ViewModel;
 
 namespace Health4life.Models
 {
-    [Table("Activity")]
-    public class Activity : BaseEntity
+    [Table("HistoryEntry")]
+    public class HistoryEntry : BaseEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,17 +16,14 @@ namespace Health4life.Models
 
         public DateTime Date { get; set; }
 
-        public bool IsFromGp { get; set; }
+        public string DomainDescription { get; set; }
 
-        public bool IsNew { get; set; }
-        
-        public ActivityDto ToActivityDto()
+        public HistoryEntryDto ToHistoryEntryDto()
         {
-            return new ActivityDto
+            return new HistoryEntryDto
             {
-                IsFromGp = this.IsFromGp,
-                IsNew = this.IsNew,
                 Description = this.Description,
+                DomainDescription = this.DomainDescription,
                 Date = this.Date
             };
         }

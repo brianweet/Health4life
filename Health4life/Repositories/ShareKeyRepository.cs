@@ -25,5 +25,16 @@ namespace Health4life.Repositories
         {
             _context.Dispose();
         }
+
+        public int Add(int validFor, DateTime until, int userId)
+        {
+            _context.ShareKeys.Add(new ShareKey()
+            {
+                ValidForUserId = validFor,
+                ValidUntil = until,
+                OwnerUserId = userId
+            });
+            return _context.SaveChanges();
+        }
     }
 }

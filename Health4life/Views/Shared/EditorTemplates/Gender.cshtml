@@ -1,0 +1,27 @@
+﻿@model Health4life.Models.Gender?
+
+<div class="btn-group" data-toggle="buttons">
+    <label class='btn btn-sm btn-info @( (Model.HasValue && Model.Value == Health4life.Models.Gender.Male) ?"active":"")'>
+        @if(Model.HasValue && Model.Value == Health4life.Models.Gender.Male)
+        {
+            @Html.RadioButtonFor(x => x, (int)Health4life.Models.Gender.Male, new { @checked = "checked" });
+        }
+        else
+        {
+            @Html.RadioButtonFor(x => x, (int)Health4life.Models.Gender.Male);
+        }
+        @Html.LabelFor(x => x, "Male")
+    </label>
+    <label class='btn btn-sm btn-info @( (Model.HasValue && Model.Value == Health4life.Models.Gender.Female) ?"active":"")'>
+        @if(Model.HasValue && Model.Value == Health4life.Models.Gender.Female)
+        {
+            @Html.RadioButtonFor(x => x, (int)Health4life.Models.Gender.Female, new { @checked = "checked" });
+        }
+        else
+        {
+            @Html.RadioButtonFor(x => x, (int)Health4life.Models.Gender.Female);
+        }
+        @Html.LabelFor(x => x, "Female")
+
+    </label>
+</div>

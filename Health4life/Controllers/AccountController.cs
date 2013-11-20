@@ -2,6 +2,7 @@
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
+using Health4life.ViewModel;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using Health4life.Models;
@@ -131,7 +132,57 @@ namespace Health4life.Controllers
                 : "";
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
-            return View();
+
+            var vm = new ManageVm();
+
+            vm.LocalPasswordModel = new LocalPasswordModel();
+
+            using (var context = new H4LContext())
+            {
+                var userprofile = context.UserProfiles.Find(WebSecurity.GetUserId(User.Identity.Name));
+                if (userprofile != null)
+                {
+                    vm.Age = userprofile.Age;
+                    vm.Gender = userprofile.Gender;
+                }
+            }
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeUserProfile(int? age, Gender? gender, ManageMessageId? message)
+        {
+            using (var context = new H4LContext())
+            {
+                var userprofile = context.UserProfiles.Find(WebSecurity.GetUserId(User.Identity.Name));
+                if (userprofile != null)
+                {
+                    userprofile.Age = age;
+                    userprofile.Gender = gender;
+                }
+
+                if(context.SaveChanges()==1)
+                {
+                    ViewBag.Success = true;
+                    ViewBag.Message = "Profile changes saved successfully";
+                }else
+                {
+                    ViewBag.Success = false;
+                    ViewBag.Message = "Something went wrong.";
+                }
+            }
+
+            ViewBag.StatusMessage =
+                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
+                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
+                : "";
+            ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
+            ViewBag.ReturnUrl = Url.Action("Manage");
+
+
+            return View("Manage",new ManageVm{Age=age,Gender=gender,LocalPasswordModel = new LocalPasswordModel()});
         }
 
         //
@@ -139,8 +190,10 @@ namespace Health4life.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Manage(LocalPasswordModel model)
+        public ActionResult Manage(ManageVm vm)
         {
+            var model = vm.LocalPasswordModel;
+
             bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.HasLocalPassword = hasLocalAccount;
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -194,7 +247,7 @@ namespace Health4life.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(new ManageVm { LocalPasswordModel = model });
         }
 
         #region Helpers
@@ -272,5 +325,7 @@ namespace Health4life.Controllers
             }
         }
         #endregion
+
+        
     }
 }

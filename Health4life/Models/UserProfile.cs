@@ -13,7 +13,7 @@ namespace Health4life.Models
         
         public string Username { get; set; }
         
-        public bool? Gender { get; set; }
+        public Gender? Gender { get; set; }
         
         [Range(0,120)]
         public int? Age { get; set; }

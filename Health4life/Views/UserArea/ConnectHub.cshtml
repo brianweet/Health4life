@@ -9,46 +9,65 @@
         <h2>@ViewBag.Title</h2>
     </div>
 </div>
+
+@if(ViewBag.Success != null)
+{
+    if (ViewBag.Success)
+    {
+        <div class="alert alert-success">
+            @ViewBag.Message
+        </div>
+    }else
+    {
+        <div class="alert alert-danger">
+        @ViewBag.Message
+    </div>  
+    }
+}
+
 <div class="row">
     <div class="col-md-6 well">
         <h4>Create a new share key</h4>
         
-        <form role="form">
-            <div class="form-group">
-                <label for="valid-for-list">Valid for who</label>
-                <div id="valid-for-list">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-sm btn-info">
-                            <input type="radio" name="valid-for" id="valid-for-gp">
-                            My GP
-                        </label>
-                        <label class="btn btn-sm btn-info">
-                            <input type="radio" name="valid-for" id="valid-for-all">
-                            Anyone
-                        </label>
+        @using (Html.BeginForm("AddShareKey", "UserArea", null, FormMethod.Post, new { @role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                    <div class="form-group">
+                        <label for="valid-for-list">Valid for who</label>
+                        <div id="valid-for-list">
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-sm btn-info">
+                                    <input type="radio" name="validfor" value="gp" id="valid-for-gp">
+                                    My GP
+                                </label>
+                                <label class="btn btn-sm btn-info">
+                                    <input type="radio" name="validfor" value="all" id="valid-for-all">
+                                    Anyone
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="valid-until-list">Valid for how long</label>
+                        <div id="valid-until-list" >
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-sm btn-info">
+                                    <input type="radio" name="validuntil" value="hour" id="valid-until-hour">
+                                    Hour
+                                </label>
+                                <label class="btn btn-sm btn-info">
+                                    <input type="radio" name="validuntil" value="day" id="valid-until-day">
+                                    Day
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <button type="submit" class="btn btn-sm btn-primary">Create new share key</button>
+        }
 
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label for="valid-until-list">Valid for how long</label>
-                <div id="valid-until-list" >
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-sm btn-info">
-                            <input type="radio" name="valid-until" value="hour" id="valid-until-hour">
-                            Hour
-                        </label>
-                        <label class="btn btn-sm btn-info">
-                            <input type="radio" name="valid-until" value="day" id="valid-until-day">
-                            Day
-                        </label>
-                    </div>
-                </div>
-            </div>
-            
-            <button type="submit" class="btn btn-sm btn-primary">Create new share key</button>
-        </form>
     </div>
     <div class="col-md-6">
         <div class="panel panel-default">

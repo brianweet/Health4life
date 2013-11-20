@@ -1,10 +1,26 @@
-﻿@model Health4life.Models.LocalPasswordModel
+﻿@model Health4life.ViewModel.ManageVm
 @{
     ViewBag.Title = "Manage Account";
 }
 
 
 <div class="row">
+    
+    @if(ViewBag.Success != null)
+{
+    if (ViewBag.Success)
+    {
+        <div class="alert alert-success">
+            @ViewBag.Message
+        </div>
+    }else
+    {
+        <div class="alert alert-danger">
+        @ViewBag.Message
+    </div>  
+    }
+}
+
     <div class="col-md-6">
         <hgroup class="title">
             <h1>@ViewBag.Title.</h1>
@@ -16,7 +32,7 @@
 
         <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
 
-        @using (Html.BeginForm("ManageGP", "Account", null, FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("ManageGP", "Account", null, FormMethod.Post, new { @class = "form-horizontal well well-sm" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary()
@@ -105,28 +121,63 @@
 
         @if (ViewBag.HasLocalPassword)
         {
-            @Html.Partial("_ChangePasswordPartial")
+            @Html.Partial("_ChangePasswordPartial",Model.LocalPasswordModel)
         }
         else
         { 
-            @Html.Partial("_SetPasswordPartial")
+            @Html.Partial("_SetPasswordPartial",Model.LocalPasswordModel)
         }
     </div>
 
     <div class="col-md-6">
+        <hgroup class="title">
+            <h1>&nbsp;</h1>
+        </hgroup>
+
+
+        @using (Html.BeginForm("ChangeUserProfile", "Account", null, FormMethod.Post, new { @class = "form-horizontal  well well-sm" }))
+        {
+            @Html.AntiForgeryToken()
+            
+            <fieldset>
+                <legend>Manage my user info</legend>
+                
+                @Html.ValidationSummary()
+                    
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Age,new {@class="col-md-4 control-label"})
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => m.Age,new{@class="form-control"})
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Gender,new {@class="col-md-4 control-label"})
+                    <div class="col-md-8">
+                        @Html.EditorFor(m => m.Gender,"gender", new{@class="form-control"})
+                    </div>
+                </div>
+                
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Change profile" />
+                </div>
+
+            </fieldset>
+            
+            
+        }
+
         @if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin"))
         {
-            <hgroup class="title">
-                <h1>Create new user.</h1>
-            </hgroup>
-            
-            <div>
-                @Html.ActionLink("Create new user", "Register", "Account", null, new { @class = "btn btn-large btn-primary" })
-            </div>
-    
-        }else
-        {
-            
+            <form class=" well well-sm">
+                <fieldset>
+                    <legend>Create new user.</legend>
+                
+                    <div>
+                        @Html.ActionLink("Create new user", "Register", "Account", null, new { @class = "btn btn-large btn-primary" })
+                    </div>
+                </fieldset>
+            </form>
         }
     </div>
 </div>

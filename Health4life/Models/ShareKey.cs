@@ -35,7 +35,7 @@ namespace Health4life.Models
             return new ShareKeyDto
                 {
                     Key = this.Key,
-                    ValidFor = (this.ValidForUserId.HasValue) ? "GP" : "Anyone",
+                    ValidFor = (this.ValidForUserId.HasValue && this.ValidForUserId != 0) ? "GP" : "Anyone",
                     ValidUntil = this.ValidUntil
                 };
         }

@@ -31,7 +31,9 @@
         <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
     </head>
     <body>
-        @Html.Partial("_NavBar")
+        @{ Html.RenderAction("Nav", "Home"); }
+
+        @*@Html.Partial("_NavBar")*@
  
         @RenderSection("featured", required: false)
  
@@ -41,13 +43,18 @@
             <div class="footer">
                 <p class="pull-left">&copy; Health Solutions.BV</p>
                 <p class="pull-right">
-                       @Html.ActionLink("Contact", "Contact", "Home")
+                    @Html.ActionLink("Contact", "Contact", "Home")
                 </p>
             </div>
         </div>
  
+        
+        
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" type="text/javascript"></script>
+        @Scripts.Render("~/bundles/calendar")
+        @Scripts.Render("~/bundles/datepicker")
         @RenderSection("scripts", required: false)
     </body>
 </html>

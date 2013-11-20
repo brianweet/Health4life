@@ -12,5 +12,6 @@ namespace Health4life.Models
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ShareKey> ShareKeys { get; set; }
+        public DbSet<HistoryEntry> HistoryEntries { get; set; }
     }
 }

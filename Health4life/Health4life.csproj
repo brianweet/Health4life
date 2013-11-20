@@ -198,6 +198,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Models\Gender.cs" />
+    <Compile Include="ViewModel\ManageVm.cs" />
+    <Compile Include="ViewModel\HistoryEntryVm.cs" />
+    <Compile Include="Models\HistoryEntry.cs" />
+    <Compile Include="ViewModel\HistoryEntryDto.cs" />
+    <Compile Include="Repositories\HistoryRepository.cs" />
     <Compile Include="ViewModel\ActivitiesVm.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserAreaController.cs" />
@@ -231,6 +237,8 @@
     <Content Include="Content\bootstrap\bootstrap.min.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
+    <Content Include="Content\calendar.css" />
+    <Content Include="Content\datepicker.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\themes\amelia\bootstrap.css">
@@ -427,8 +435,10 @@
     <None Include="Content\themes\readable\bootstrap.less" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\calendar.js" />
     <Content Include="Scripts\html5shiv.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -448,7 +458,16 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\less-1.4.1.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="tmpls\day.html" />
+    <Content Include="tmpls\events-list.html" />
+    <Content Include="tmpls\month-day.html" />
+    <Content Include="tmpls\month.html" />
+    <Content Include="tmpls\week-days.html" />
+    <Content Include="tmpls\week.html" />
+    <Content Include="tmpls\year-month.html" />
+    <Content Include="tmpls\year.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -490,6 +509,7 @@
     <Content Include="Views\UserArea\Activities.cshtml" />
     <Content Include="Views\UserArea\Diary.cshtml" />
     <Content Include="Views\UserArea\PatientHistory.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Gender.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

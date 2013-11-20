@@ -1,4 +1,6 @@
-﻿@helper ActiveItem(string actionName, string controllerName, string areaName)
+﻿@model int?
+
+@helper ActiveItem(string actionName, string controllerName, string areaName)
 {
     if (ViewContext.RouteData.Values["action"].ToString() == actionName &&
             ViewContext.RouteData.Values["controller"].ToString() == controllerName &&
@@ -47,7 +49,14 @@
                         @Html.ActionLink("Diary", "Diary", "UserArea")
                     </li>
                     <li class="@ActiveItem("Activities", "UserArea", null)">
-                        <a href="@Url.Action("Activities", "UserArea")">Activities <span class="badge">2</span></a>
+                        @if(Model != null && Model > 0)
+                        {
+                            <a href="@Url.Action("Activities", "UserArea")">Activities <span class="badge">@Model</span></a>    
+                        }else
+                        {
+                            <a href="@Url.Action("Activities", "UserArea")">Activities</a>    
+                        }
+                        
                     </li>
                     <li class="@ActiveItem("PatientHistory", "UserArea", null)">
                         @Html.ActionLink("Patient history", "PatientHistory", "UserArea")

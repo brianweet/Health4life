@@ -8,5 +8,6 @@ namespace Health4life.ViewModel
     {
         public IEnumerable<ActivityDto> Activities { get; set; }
         public IEnumerable<ShareKeyDto> ShareKeys { get; set; }
+        public IEnumerable<HistoryEntryDto> HistoryEntries { get; set; }
     }
 }

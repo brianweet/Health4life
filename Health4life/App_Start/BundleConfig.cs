@@ -30,9 +30,17 @@ namespace Health4life
             bundles.Add(new ScriptBundle("~/bundles/select2").Include(
                         "~/Scripts/select2.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/calendar").Include(
+                        "~/Scripts/calendar.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
+                        "~/Scripts/bootstrap-datepicker.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include( 
                 "~/Content/health4life.css",
-                "~/Content/select2/select2.css"));
+                "~/Content/select2/select2.css",
+                "~/Content/calendar.css",
+                "~/Content/datepicker.css"));
 
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
