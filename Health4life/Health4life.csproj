@@ -214,7 +214,9 @@
     <Compile Include="ViewModel\ConnectHubVm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="connectionStrings.config" />
+    <Content Include="connectionStrings.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
@@ -222,6 +224,18 @@
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\themes\amelia\bootstrap.css">
+      <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
+    <Content Include="Content\themes\amelia\bootstrap.min.css">
+      <DependentUpon>bootstrap.less</DependentUpon>
+    </Content>
+    <Content Include="Content\themes\amelia\variables.css">
+      <DependentUpon>variables.less</DependentUpon>
+    </Content>
+    <Content Include="Content\themes\amelia\variables.min.css">
+      <DependentUpon>variables.less</DependentUpon>
+    </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -295,6 +309,7 @@
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
     <Content Include="Content\health4life.css" />
+    <Content Include="Content\themes\united\bootstrap.min.css" />
     <Content Include="Content\themes\readable\bootstrap.css">
       <DependentUpon>bootstrap.less</DependentUpon>
     </Content>
@@ -355,6 +370,9 @@
     <Content Include="Content\themes\cosmo\bootstrap.less" />
     <Content Include="Content\themes\cosmo\bootswatch.less" />
     <Content Include="Content\themes\cosmo\variables.less" />
+    <Content Include="Content\themes\amelia\bootswatch.less" />
+    <Content Include="Content\themes\amelia\variables.less" />
+    <Content Include="Content\themes\amelia\bootstrap.less" />
     <None Include="Content\themes\default\alerts.less" />
     <None Include="Content\themes\default\badges.less" />
     <None Include="Content\themes\default\bootstrap.less" />

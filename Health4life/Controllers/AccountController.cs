@@ -57,7 +57,7 @@ namespace Health4life.Controllers
         //
         // GET: /Account/Register
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         public ActionResult Register()
         {
             return View();
@@ -67,7 +67,7 @@ namespace Health4life.Controllers
         // POST: /Account/Register
 
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public ActionResult Register(RegisterModel model)
         {
@@ -77,8 +77,8 @@ namespace Health4life.Controllers
                 try
                 {
                     WebSecurity.CreateUserAndAccount(model.Username, model.Password);
-                    WebSecurity.Login(model.Username, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.Message = String.Format("Created user {0} succesfully", model.Username);
+                    return View();
                 }
                 catch (MembershipCreateUserException e)
                 {

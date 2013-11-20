@@ -47,7 +47,7 @@
                         @Html.ActionLink("Diary", "Diary", "UserArea")
                     </li>
                     <li class="@ActiveItem("Activities", "UserArea", null)">
-                        @Html.ActionLink("Activities", "Activities", "UserArea")
+                        <a href="@Url.Action("Activities", "UserArea")">Activities <span class="badge">2</span></a>
                     </li>
                     <li class="@ActiveItem("PatientHistory", "UserArea", null)">
                         @Html.ActionLink("Patient history", "PatientHistory", "UserArea")

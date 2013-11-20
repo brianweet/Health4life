@@ -3,23 +3,61 @@
     ViewBag.Title = "Manage Account";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
 
-<p class="message-success">@ViewBag.StatusMessage</p>
+<div class="row">
+    <div class="col-md-6">
+        <hgroup class="title">
+            <h1>@ViewBag.Title.</h1>
+        </hgroup>
+        <div class="alert alert-success">@ViewBag.StatusMessage</div>
 
-<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+        <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+        
+        @using (Html.BeginForm("ManageGP", "Account",null,FormMethod.Post,new{@class="form-horizontal"})) {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
 
-@if (ViewBag.HasLocalPassword)
-{
-    @Html.Partial("_ChangePasswordPartial")
-}
-else
-{ 
-    @Html.Partial("_SetPasswordPartial")
-}
+                <fieldset>
+                    <legend>Manage my GP</legend>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Current GP</label>
+                        <div class="col-md-9">
+                            <p class="form-control-static">None</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newGP" class="col-sm-3 control-label">Find new GP</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="newGP" placeholder="Enter email or GP name">
+                        </div>
+                    </div>
+                </fieldset>
+        }
 
+        @if (ViewBag.HasLocalPassword)
+        {
+            @Html.Partial("_ChangePasswordPartial")
+        }
+        else
+        { 
+            @Html.Partial("_SetPasswordPartial")
+        }
+    </div>
+
+    <div class="col-md-6">
+        @if (Roles.Provider.GetRolesForUser(User.Identity.Name).Contains("Admin"))
+        {
+            <hgroup class="title">
+                <h1>Create new user.</h1>
+            </hgroup>
+            
+            <div>
+                @Html.ActionLink("Create new user", "Register","Account", null, new {@class="btn btn-large btn-primary"})
+            </div>
+    
+        }
+    </div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

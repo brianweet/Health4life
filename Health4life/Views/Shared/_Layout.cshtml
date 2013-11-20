@@ -8,17 +8,18 @@
  
         @Styles.Render("~/Content/css")
         <script type="text/javascript">
+            var e = document.createElement('link');
             if (window.location.search.toLowerCase() == '?style=readable') {
-                var e = document.createElement('link');
                 e.href = '/Content/themes/readable/bootstrap.css';
-                e.rel = 'stylesheet';
-                document.getElementsByTagName("head")[0].appendChild(e);
+            } else if (window.location.search.toLowerCase() == '?style=amelia') {
+                e.href = '/Content/themes/amelia/bootstrap.css';
+            } else if (window.location.search.toLowerCase() == '?style=united') {
+                e.href = '/Content/themes/united/bootstrap.min.css';
             } else {
-                var e = document.createElement('link');
                 e.href = '/Content/themes/cosmo/bootstrap.css';
-                e.rel = 'stylesheet';
-                document.getElementsByTagName("head")[0].appendChild(e);
             }
+            e.rel = 'stylesheet';
+            document.getElementsByTagName("head")[0].appendChild(e);
         </script>
         @Html.Partial("_html5shiv")
         <!-- Fav and touch icons -->

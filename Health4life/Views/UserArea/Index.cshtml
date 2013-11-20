@@ -29,7 +29,7 @@
         // draws it.
         function drawChart() {
             if (!draw) {
-                setTimeout(drawChart, 500);
+                setTimeout(drawChart, 300);
                 return;
             }
 
@@ -114,39 +114,27 @@
                     </div>
 
                     <div class="content">
-                        Connect hub summary
                         <table class="table">
-                <thead>
-                    <tr>
-                        <th>Key</th>
-                        <th>Valid until</th>
-                        <th>Valid for</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach(var key in Model.ShareKeys)
-                    {
-                        var rowClass = (key.IsActive) ? "success" : null;
-                        <tr class="@rowClass">
+                            <thead>
+                                <tr>
+                                    <th>Key</th>
+                                    <th>Valid until</th>
+                                    <th>Valid for</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(var key in Model.ShareKeys)
+                                {
+                                    var rowClass = (key.IsActive) ? "success" : null;
+                                    <tr class="@rowClass">
                             
-                            <td>@key.Id</td>
-                            <td>@key.ValidUntil.ToString("dd-MMM-yyyy HH:mm")</td>
-                            <td>@key.ValidFor</td>
-                            <td>
-                                @if(key.IsActive)
-                                {
-                                    <button type="button" class="btn btn-sm btn-primary">Invalidate key</button>
+                                        <td>@key.Id</td>
+                                        <td>@key.ValidUntil.ToString("dd-MMM-yyyy HH:mm")</td>
+                                        <td>@key.ValidFor</td>
+                                    </tr>
                                 }
-                                else
-                                {
-                                    <button type="button" class="btn btn-sm btn-primary" disabled="disabled">Invalidate key</button>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="action-buttons">
