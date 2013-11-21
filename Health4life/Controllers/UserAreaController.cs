@@ -183,6 +183,8 @@ namespace Health4life.Controllers
                         var userprofile = context.UserProfiles.Find(_userId);
                         if (userprofile != null && userprofile.GeneralPractitionerUserId.HasValue)
                             validFor = userprofile.GeneralPractitionerUserId.Value;
+                        else//fake id for testing
+                            validFor = 99999;
                     }
                 }
                 

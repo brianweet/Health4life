@@ -42,7 +42,19 @@
 .roundabout-moveable-item.roundabout-in-focus div.content, .roundabout-moveable-item.roundabout-in-focus div.action-buttons {
     opacity: 1;
    }
-   
+@media (max-width: 768px)
+{
+    #roundabout
+    {
+        list-style-type: none;
+        padding: 0;
+        margin-left: 0;
+    }
+
+    #roundabout table {
+        font-size: 0.7em;
+    }
+}
 			/*ul {
 				list-style: none;
 				padding: 0;

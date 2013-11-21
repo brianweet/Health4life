@@ -14,11 +14,11 @@
 </div>
 <div class="row">
     <div class="col-md-8">
-        <div class="col-md-9 col-md-offset-3">
+        <div class="col-xs-12 col-md-offset-3">
             <div class="btn-group">
-                <button class="btn btn-primary" data-calendar-nav="prev">&lt;&lt; Prev month</button>
+                <button class="btn btn-primary" id="data-calendar-nav-prev" data-calendar-nav="prev">&lt;&lt; Prev month</button>
                 <button class="btn" data-calendar-nav="today">Today</button>
-                <button class="btn btn-primary" data-calendar-nav="next">Next month &gt;&gt;</button>
+                <button class="btn btn-primary" id="data-calendar-nav-next" data-calendar-nav="next">Next month &gt;&gt;</button>
             </div>
         </div>
     </div>
@@ -46,6 +46,12 @@
 {
     <script type="text/javascript">
         $(document).ready(function () {
+            if ($(window).width() < 500) {
+                $('#data-calendar-nav-prev').text('<< Prev');
+                $('#data-calendar-nav-next').text('Next >>');
+            }
+
+
             var options = {
                 events_source: 'AgendaEvents',
                 view: 'month',
